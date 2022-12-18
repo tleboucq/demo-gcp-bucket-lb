@@ -17,7 +17,7 @@ steps:
     args:
     - '-c'
     - > 
-      gsutil iam ch allUsers:objectViewer gs://gcsbucketmediumgkesamyxxx
+      gsutil iam ch allUsers:objectViewer gs://gcsbucketmediumgkesamy
 
 # Step 2
 # Reserve an external static IP address
@@ -63,7 +63,7 @@ steps:
     - '-c'
     - > 
       gcloud compute backend-buckets create web-backend-bucket \ 
-      --gcs-bucket-name gcsbucketmediumgke
+      --gcs-bucket-name gcsbucketmediumgkesamy
 
 
 # Step 6
