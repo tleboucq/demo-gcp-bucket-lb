@@ -10,7 +10,6 @@ steps:
       gcloud storage buckets create gs://gcsbucketmediumgkesamyxxx \
       --location=europe-west9 \
       --network-tier=PREMIUM \
-      --global
 
 # Step 1
 # Open the bucket viewer to the public internet
