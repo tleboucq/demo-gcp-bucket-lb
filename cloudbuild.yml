@@ -8,7 +8,7 @@ steps:
     - '-c'
     - > 
       gcloud storage buckets create gs://gcsbucketmediumgkesamyxxx \
-      --location=europe-west9 \
+      --location=EUROPE-WEST9 \
       --network-tier=PREMIUM \
 
 # Step 1
