@@ -27,8 +27,8 @@ steps:
     - '-c'
     - > 
       gcloud compute addresses create lb-ipv4-1 \ 
-      --ip-version=IPV4 \
-      --network-tier=PREMIUM \
+      --ip-version IPV4 \
+      --network-tier PREMIUM \
       --global
 
 
@@ -40,7 +40,7 @@ steps:
     - '-c'
     - > 
       gcloud compute addresses describe lb-ipv4-1 \
-      --format="get(address)" \
+      --format "get(address)" \
       --global
 
 
@@ -63,7 +63,7 @@ steps:
     - '-c'
     - > 
       gcloud compute backend-buckets create web-backend-bucket \ 
-      --gcs-bucket-name=gcsbucketmediumgke
+      --gcs-bucket-name gcsbucketmediumgke
 
 
 # Step 6
@@ -74,7 +74,7 @@ steps:
     - '-c'
     - > 
       gcloud compute url-maps create web-map-http \
-      --default-backend-bucket=web-backend-bucket
+      --default-backend-bucket web-backend-bucket
 
 
 # Step 7
@@ -85,7 +85,7 @@ steps:
     - '-c'
     - > 
       gcloud compute target-http-proxies create http-lb-proxy \
-      --url-map=web-map-http
+      --url-map web-map-http
 
 
 # Step 8
@@ -96,8 +96,8 @@ steps:
     - '-c'
     - > 
       gcloud compute forwarding-rules create http-content-rule \
-      --load-balancing-scheme=EXTERNAL \
-      --address=lb-ipv4-1 \
+      --load-balancing-scheme EXTERNAL \
+      --address lb-ipv4-1 \
       --global \
-      --target-http-proxy=http-lb-proxy \
-      --ports=80
+      --target-http-proxy http-lb-proxy \
+      --ports 80
