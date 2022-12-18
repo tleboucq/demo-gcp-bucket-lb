@@ -1,13 +1,5 @@
 steps:
 
-# Step 00
-# Create bucket in europe-west9 region 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - > 
-      gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:$(gcloud projects describe ${PROJECT_ID} --format="value(projectNumber)")@cloudbuild.gserviceaccount.com --role="roles/storage.admin"
 
 # Step 0
 # Create bucket in europe-west9 region 
