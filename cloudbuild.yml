@@ -8,7 +8,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud storage buckets create gs://gcsbucketmediumgkesamyxxx --location=EUROPE-WEST9
+      gcloud storage buckets create gs://gcsbucketmediumgkesamy --location=EUROPE-WEST9
 
 # Step 1
 # Open the bucket viewer to the public internet
@@ -26,7 +26,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud compute addresses create lb-ipv4-1 \
+      gcloud compute addresses create lb-ipv4-1 \ 
       --ip-version=IPV4 \
       --network-tier=PREMIUM \
       --global
