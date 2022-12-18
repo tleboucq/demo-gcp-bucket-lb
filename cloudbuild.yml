@@ -7,8 +7,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud storage buckets create gs://gcsbucketmediumgkesamyxxx \
-      --location=EUROPE-WEST9 \
+      gcloud storage buckets create gs://gcsbucketmediumgkesamyxxx --location=EUROPE-WEST9
 
 # Step 1
 # Open the bucket viewer to the public internet
