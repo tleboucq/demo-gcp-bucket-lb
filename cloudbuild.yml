@@ -56,7 +56,6 @@ steps:
     - > 
       gcloud compute health-checks create http http-basic-check \
       --port 80
-steps:
 
 # Step 5
 # Create backend bucket to be used by our LB
