@@ -26,7 +26,7 @@ steps:
     args: ['compute', 'addresses', 'create', 'lb-ipv4-1', '--ip-version=IPV4', '--network-tier=PREMIUM', '--global']
 
 
-# Step 3
+# Step 33
 # Get the newly created IPv4 address - be sure to copy it
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
