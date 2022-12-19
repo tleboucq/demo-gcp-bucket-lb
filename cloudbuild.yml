@@ -22,14 +22,8 @@ steps:
 # Step 2
 # Reserve an external static IP address
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - > 
-      gcloud compute addresses create lb-ipv4-1 \ 
-      --ip-version IPV4 \
-      --network-tier PREMIUM \
-      --global
+    entrypoint: 'gcloud'
+    args: ['compute', 'addresses', 'create', 'lb-ipv4-1', '--ip-version=IPV4', '--network-tier=PREMIUM', '--global']
 
 
 # Step 3
