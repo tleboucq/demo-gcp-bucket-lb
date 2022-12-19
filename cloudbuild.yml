@@ -1,7 +1,7 @@
 steps:
 
 
-# Step 0
+# Step 1
 # Create bucket in europe-west9 region 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -10,7 +10,7 @@ steps:
     - > 
       gcloud storage buckets create gs://gcsbucketmediumgkesamy --location=EUROPE-WEST9
 
-# Step 1
+# Step 2
 # Open the bucket viewer to the public internet
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -19,23 +19,12 @@ steps:
     - > 
       gsutil iam ch allUsers:objectViewer gs://gcsbucketmediumgkesamy
 
-# Step 2
+# Step 3
 # Reserve an external static IP address
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args: ['compute', 'addresses', 'create', 'lb-ipv4-1', '--ip-version=IPV4', '--network-tier=PREMIUM', '--global']
 
-
-# Step 33
-# Get the newly created IPv4 address - be sure to copy it
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - > 
-      gcloud compute addresses describe lb-ipv4-1 \
-      --format "get(address)" \
-      --global
 
 
 
@@ -46,8 +35,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud compute health-checks create http http-basic-check \
-      --port 80
+      gcloud compute health-checks create http http-basic-check --port 80
 
 # Step 5
 # Create backend bucket to be used by our LB
@@ -56,8 +44,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud compute backend-buckets create web-backend-bucket \ 
-      --gcs-bucket-name gcsbucketmediumgkesamy
+      gcloud compute backend-buckets create web-backend-bucket --gcs-bucket-name gcsbucketmediumgkesamy
 
 
 # Step 6
@@ -67,8 +54,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud compute url-maps create web-map-http \
-      --default-backend-bucket web-backend-bucket
+      gcloud compute url-maps create web-map-http --default-backend-bucket web-backend-bucket
 
 
 # Step 7
@@ -78,20 +64,18 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud compute target-http-proxies create http-lb-proxy \
-      --url-map web-map-http
+      gcloud compute target-http-proxies create http-lb-proxy --url-map web-map-http
 
 
 # Step 8
 # Create a global forwarding rule to route incoming requests to the proxy
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - > 
-      gcloud compute forwarding-rules create http-content-rule \
-      --load-balancing-scheme EXTERNAL \
-      --address lb-ipv4-1 \
-      --global \
-      --target-http-proxy http-lb-proxy \
-      --ports 80
+    entrypoint: 'gcloud'
+    args: ['compute', 'forwarding-rules', 'create', 'http-content-rule', 
+    '--load-balancing-scheme=EXTERNAL',
+    '--address=lb-ipv4-1',
+    '--global',
+    '--target-http-proxy=http-lb-proxy',
+    '--ports=80'
+            ]
+      
