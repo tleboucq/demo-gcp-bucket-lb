@@ -1,7 +1,6 @@
 steps:
 
-
-# Step 1
+# Step 0
 # Create bucket in europe-west9 region 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -10,7 +9,7 @@ steps:
     - > 
       gcloud storage buckets create gs://gcsbucketmediumgkesamy --location=EUROPE-WEST9
 
-# Step 2
+# Step 1
 # Open the bucket viewer to the public internet
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -19,16 +18,13 @@ steps:
     - > 
       gsutil iam ch allUsers:objectViewer gs://gcsbucketmediumgkesamy
 
-# Step 3
+# Step 2
 # Reserve an external static IP address
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args: ['compute', 'addresses', 'create', 'lb-ipv4-1', '--ip-version=IPV4', '--network-tier=PREMIUM', '--global']
 
-
-
-
-# Step 4
+# Step 3
 # Create HTTP health check
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -37,7 +33,7 @@ steps:
     - > 
       gcloud compute health-checks create http http-basic-check --port 80
 
-# Step 5
+# Step 4
 # Create backend bucket to be used by our LB
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -47,7 +43,7 @@ steps:
       gcloud compute backend-buckets create web-backend-bucket --gcs-bucket-name gcsbucketmediumgkesamy
 
 
-# Step 6
+# Step 5
 # Create URL map to route incoming traffic to our backend bucket
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -57,7 +53,7 @@ steps:
       gcloud compute url-maps create web-map-http --default-backend-bucket web-backend-bucket
 
 
-# Step 7
+# Step 6
 # Create a target HTTP proxy to route incoming requests to our URL map
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -67,7 +63,7 @@ steps:
       gcloud compute target-http-proxies create http-lb-proxy --url-map web-map-http
 
 
-# Step 8
+# Step 7
 # Create a global forwarding rule to route incoming requests to the proxy
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
