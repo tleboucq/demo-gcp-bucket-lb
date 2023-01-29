@@ -7,7 +7,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud storage buckets create gs://gcsbucketmediumgkesamy --location=EUROPE-WEST9
+      gcloud storage buckets create gs://demo1frontendtleboucq --location=EUROPE-WEST9
 
 # Step 1
 # Open the bucket viewer to the public internet
@@ -16,7 +16,7 @@ steps:
     args:
     - '-c'
     - > 
-      gsutil iam ch allUsers:objectViewer gs://gcsbucketmediumgkesamy
+      gsutil iam ch allUsers:objectViewer gs://demo1frontendtleboucq
 
 # Step 2
 # Reserve an external static IP address
@@ -40,7 +40,7 @@ steps:
     args:
     - '-c'
     - > 
-      gcloud compute backend-buckets create web-backend-bucket --gcs-bucket-name gcsbucketmediumgkesamy
+      gcloud compute backend-buckets create web-backend-bucket --gcs-bucket-name demo1frontendtleboucq
 
 
 # Step 5
