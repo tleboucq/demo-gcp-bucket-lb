@@ -2,12 +2,12 @@ steps:
 
 # Step 0
 # Create bucket in europe-west9 region 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - > 
-      gcloud storage buckets create gs://demo1frontendtleboucq --location=EUROPE-WEST9
+#  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#    entrypoint: 'bash'
+#    args:
+#    - '-c'
+#    - > 
+#      gcloud storage buckets create gs://demo1frontendtleboucq --location=EUROPE-WEST9
 
 # Step 1
 # Open the bucket viewer to the public internet
